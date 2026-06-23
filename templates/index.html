@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        .result { background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px; border-radius: 5px; font-weight: bold;}
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        .full-width { grid-column: span 2; }
+        button { grid-column: span 2; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 5px;}
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h2>Diabetes Prediction</h2>
+
+    {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+
+    <form action="/predict" method="POST">
+        <div class="full-width">
+            <label for="model">Pilih Model Algoritma:</label>
+            <select name="model" id="model" required>
+                {% for m in model_names %}
+                    <option value="{{ m }}">{{ m }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Pregnancies</label>
+            <input type="number" name="Pregnancies" required min="0" step="1">
+        </div>
+        <div>
+            <label>Glucose</label>
+            <input type="number" name="Glucose" required min="0" step="any">
+        </div>
+        <div>
+            <label>BloodPressure</label>
+            <input type="number" name="BloodPressure" required min="0" step="any">
+        </div>
+        <div>
+            <label>SkinThickness</label>
+            <input type="number" name="SkinThickness" required min="0" step="any">
+        </div>
+        <div>
+            <label>Insulin</label>
+            <input type="number" name="Insulin" required min="0" step="any">
+        </div>
+        <div>
+            <label>BMI</label>
+            <input type="number" name="BMI" required min="0" step="any">
+        </div>
+        <div>
+            <label>DiabetesPedigreeFunction</label>
+            <input type="number" name="DiabetesPedigreeFunction" required min="0" step="any">
+        </div>
+        <div>
+            <label>Age</label>
+            <input type="number" name="Age" required min="0" step="1">
+        </div>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
